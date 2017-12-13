@@ -90,11 +90,9 @@ func GetAllJadwal(w http.ResponseWriter, r *http.Request) {
 	defer rows.Close()
 	for rows.Next() {
 		err := rows.Scan(&jad.ID, &jad.Hari, &jad.Bulan, &jad.Tahun, &jad.Jam, &jad.Tempat, &jad.Kegiatan, &jad.Keterangan)
-		
 		if err != nil {
 			log.Fatal(err)
 		}
-		
 		json.NewEncoder(w).Encode(&jad)
 	}
 	err = rows.Err()

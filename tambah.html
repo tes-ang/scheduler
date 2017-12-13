@@ -6,7 +6,8 @@
 	<script>
 		function post(event){
 			event.preventDefault();
-			var xhr = new XMLHttpRequest();
+			var xhr = new XMLHttpRequest();();
+			var i = parseInt(document.getElementById("ID").value);
 			var h = parseInt(document.getElementById("Hari").value);
 			var b = parseInt(document.getElementById("Bulan").value);
 			var ta = parseInt(document.getElementById("Tahun").value);
@@ -15,6 +16,7 @@
 			var kg = document.getElementById("Kegiatan").value;
 			var kt = document.getElementById("Keterangan").value;
 			var tambahan = {
+				ID : i
 				Hari : h,
 				Bulan : b,
 				Tahun : ta,
@@ -39,13 +41,14 @@
 <body>
 	<div>
 		<h1>Jadwal Baru</h1>
-		Hari: <input type="text" id="Hari"><br>
-		Bulan: <input type="text" id="Bulan"><br>
-		Tahun: <input type="text" id="Tahun"><br>
-		Jam: <input type="text" id="Jam"><br>
-		Tempat: <input type="text" id="Tempat"><br>
-		Kegiatan: <input type="text" id="Kegiatan"><br>
-		Keterangan: <input type="text" id="Keterangan"><br>
+		ID: <input type = "text" id = "ID"><br>
+		Hari: <input type = "text" id = "Hari"><br>
+		Bulan: <input type = "text" id = "Bulan"><br>
+		Tahun: <input type = "text" id = "Tahun"><br>
+		Jam: <input type = "text" id = "Jam"><br>
+		Tempat: <input type = "text" id = "Tempat"><br>
+		Kegiatan: <input type = "text" id = "Kegiatan"><br>
+		Keterangan: <input type = "text" id = "Keterangan"><br>
 		<button onclick=post(event)>Tambah</button>
 		<button onclick=location.href="http://localhost:8080/index/">Kembali</button><br><br>
 		<span id="a"></span>
