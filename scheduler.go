@@ -95,7 +95,7 @@ func InsertJadwal (w http.ResponseWriter, r *http.Request) {
 	}
 	
 	stmt, err := db.Prepare("INSERT INTO jadwal (ID, Hari, Bulan, Tahun, Jam, Tempat, Kegiatan, Keterangan VALUES (?,?,?,?,?)")
-	if err != inl {
+	if err != nil {
 		log.Fatal(err)
 	}
 	_, err = stmt.Exec(jad.ID, jad.Hari, jad.Bulan, jad.Tahun, jad.Jam, jad.Tempat, jad.Kegiatan, jad.Keterangan)
