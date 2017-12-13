@@ -82,16 +82,12 @@ func GetAllJadwal(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	defer db.Close()
-	
 	jad := jadwal{}
-	
-	rows, err := db.Query("SELECT ID, Hari, Bulan, Tahun, Jam, Tempat, Kegiatan, Keterangan FROM jadwal")
-	
+	rows, err := db.Query("SELECT * FROM jadwal")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer rows.Close()
-	
 	for rows.Next() {
 		err := rows.Scan(&jad.ID, &jad.Hari, &jad.Bulan, &jad.Tahun, &jad.Jam, &jad.Tempat, &jad.Kegiatan, &jad.Keterangan)
 		
@@ -102,6 +98,9 @@ func GetAllJadwal(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(&jad)
 	}
 	err = rows.Err()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func InsertJadwal (w http.ResponseWriter, r *http.Request) {
@@ -112,13 +111,11 @@ func InsertJadwal (w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	defer r.Body.Close()
-	
 	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/scheduler")
 	if err != nil {
 		log.Fatal(err)
 	}
-	
-	stmt, err := db.Prepare("INSERT INTO jadwal (ID, Hari, Bulan, Tahun, Jam, Tempat, Kegiatan, Keterangan VALUES (?,?,?,?,?)")
+	stmt, err := db.Prepare("INSERT INTO jadwal (Hari, Bulan, Tahun, Jam, Tempat, Kegiatan, Keterangan VALUES (?,?,?,?,?,?,?)")
 	if err != nil {
 		log.Fatal(err)
 	}
