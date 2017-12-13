@@ -65,9 +65,7 @@ func main() {
 	})
 	
 	http.HandleFunc("/hapus/", func(w http.ResponseWriter, r *http.Request) {
-		s := r.URL.Path[len("/delete/"):]
-		DeleteJadwal(w,r,s)
-		GetAllJadwal(w,r)
+		http.ServeFile(w,r,"hapus.html")
 	})
 	log.Printf("Server starting on port %v\n", port)
     log.Fatal(http.ListenAndServe(fmt.Sprintf(":%v", port), nil))
