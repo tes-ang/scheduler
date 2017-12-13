@@ -35,7 +35,17 @@ func main() {
 	port := 8080
 		
 	http.HandleFunc("/jadwal/", func(w http.ResponseWriter, r *http.Request) {
-		GetAllJadwal(w,r)
+		switch r.Method {
+			case "GET":
+				GetAllJadwal(w,r)
+				break
+			case "POST":
+				InsertJadwal(w,r)
+				break
+			default:
+				http.Error(w, "Invalid request method.", 405)
+				break
+		}
 	})
 	
 	log.Printf("Server starting on port %v\n", port)
