@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset = "utf-8"/>
+<head>
+	<script>
+		function post(event){
+			event.preventDefault();
+			var xhr = new XMLHttpRequest();
+			var h = parseInt(document.getElementById("Hari").value);
+			var b = parseInt(document.getElementById("Bulan").value);
+			var ta = parseInt(document.getElementById("Tahun").value);
+			var j = parseInt(document.getElementById("Jam").value);
+			var te = document.getElementById("Tempat").value;
+			var kg = document.getElementById("Kegiatan").value;
+			var kt = document.getElementById("Keterangan").value;
+			var tambahan = {
+				Hari : h,
+				Bulan : b,
+				Tahun : ta,
+				Jam : j,
+				Tempat : te,
+				Kegiatan : kg,
+				Keterangan : kt
+			};
+			var json = JSON.stringify(tambahan);
+			xhr.open("POST", "http://localhost:8080/jadwal");
+			xhr.setRequestHeader("Content-type","application/json");
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == XMLHttpRequest.DONE){
+					document.getElementById("a").innerHTML = xhr.responseText;
+				}
+			}
+			xhr.send(json);
+		}
+	</script>
+</head>
+
+<div>
+	<h1>Post</h1>
+	Hari: <input type="text" id="Hari"><br>
+	Bulan: <input type="text" id="Bulan"><br>
+	Tahun: <input type="text" id="Tahun"><br>
+	Jam: <input type="text" id="Jam"><br>
+	Tempat: <input type="text" id="Tempat"><br>
+	Kegiatan: <input type="text" id="Kegiatan"><br>
+	Keterangan: <input type="text" id="Keterangan"><br>
+	<button onclick=post(event)>Tambah</button>
+	<button onclick=location.href="http://localhost:8080/index/">Kembali</button><br>
+    <span id="a"></span>
+</div>

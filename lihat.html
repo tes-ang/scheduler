@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset = "utf-8"/>
+<head>
+	<title>Tessa's Scheduler</title>
+	<script>
+		function search(event) {
+			event.preventDefault();
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", "http://localhost:8080/jadwal/");
+			xhr.onreadystatechange = function() 
+				if (xhr.readyState == XMLHttpRequest.DONE){
+					document.getElementById("a").innerHTML = xhr.responseText;
+				}
+			}
+			xhr.send(null);
+		}
+	</script>
+</head>
+<body>
+	<div>
+		<h1>Lihat</h1>
+		<button onclick=search(event)>Lihat Semua</button>
+		<button onclick=location.href="http://localhost:8080/index/">Kembali</button>
+	</div>
+	<span id="a"></span>
+</body>
