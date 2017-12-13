@@ -43,6 +43,14 @@ func main() {
 		http.ServeFile(w,r,"lihat.html")
 	})
 	
+	http.HandleFunc("/tambah/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w,r,"tambah.html")
+	})
+	
+	http.HandleFunc("/hapus/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w,r,"hapus.html")
+	})
+	
 	http.HandleFunc("/jadwal/", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 			case "GET":
@@ -57,16 +65,12 @@ func main() {
 				DeleteJadwal(w,r,s)
 				GetAllJadwal(w,r)
 				break
+			default:
+				http.Error(w, "Invalid request method.", 405)
+				break
 		}
 	})
 	
-	http.HandleFunc("/tambah/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w,r,"tambah.html")
-	})
-	
-	http.HandleFunc("/hapus/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w,r,"hapus.html")
-	})
 	log.Printf("Server starting on port %v\n", port)
     log.Fatal(http.ListenAndServe(fmt.Sprintf(":%v", port), nil))
 }
