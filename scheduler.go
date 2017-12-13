@@ -41,10 +41,6 @@ func main() {
 				break
 			case "POST":
 				InsertJadwal(w,r)
-				GetAllJadwal(w,r)
-				break
-			default:
-				http.Error(w, "Invalid request method.", 405)
 				break
 		}
 	})
