@@ -42,6 +42,10 @@ func main() {
 				InsertJadwal(w,r)
 				GetAllJadwal(w,r)
 				break
+			case "DELETE":
+				DeleteJadwal(w,r)
+				GetAllJadwal(w,r)
+				break
 			default:
 				http.Error(w, "Invalid method.", 405)
 				break
@@ -91,4 +95,16 @@ func InsertJadwal (w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	_, err = stmt.Exec(jad.Hari, jad.Bulan, jad.Tahun, jad.Jam, jad.Tempat, jad.Kegiatan, jad.Keterangan)
+}
+
+func DeleteJadwal(w http.ResponseWriter, r *http.Request){
+	db,err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/scheduler")
+	if err != nil{
+		log.Fatal(err)
+	}
+	rows,err := db.Query("DELETE * FROM jadwal)
+	defer rows.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
