@@ -32,7 +32,7 @@ type jadwalJS struct {
 }
 
 func main() {
-	port := 8080
+	port := 1995
 	http.HandleFunc("/jadwal/", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 			case "GET":
@@ -52,7 +52,7 @@ func main() {
 }
 
 func GetAllJadwal(w http.ResponseWriter, r *http.Request) {
-	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/scheduler")
+	db, err := sql.Open("mysql", "root:@tcp(167.205.67.251:3306)/scheduler")
 	w.Header().Set("Content-Type", "application/json")
 	if err != nil {
 		log.Fatal(err)
@@ -82,7 +82,7 @@ func InsertJadwal (w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	defer r.Body.Close()
-	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/scheduler")
+	db, err := sql.Open("mysql", "root:@tcp(167.205.67.251:3306)/scheduler")
 	if err != nil {
 		log.Fatal(err)
 	}
