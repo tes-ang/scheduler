@@ -33,7 +33,6 @@ type jadwalJS struct {
 
 func main() {
 	port := 8080
-		
 	http.HandleFunc("/jadwal/", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 			case "GET":
@@ -43,18 +42,16 @@ func main() {
 				InsertJadwal(w,r)
 				break
 			default:
-				http.Error(w, "Invalid request method.", 405)
+				http.Error(w, "Invalid method.", 405)
 				break
 		}
 	})
-	
 	log.Printf("Server starting on port %v\n", port)
     log.Fatal(http.ListenAndServe(fmt.Sprintf(":%v", port), nil))
 }
 
 func GetAllJadwal(w http.ResponseWriter, r *http.Request) {
 	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/scheduler")
-	w.Header().Set("Content-Type", "application/json")
 	if err != nil {
 		log.Fatal(err)
 	}
