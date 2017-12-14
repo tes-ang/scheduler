@@ -40,6 +40,7 @@ func main() {
 				break
 			case "POST":
 				InsertJadwal(w,r)
+				GetAllJadwal(w,r)
 				break
 			default:
 				http.Error(w, "Invalid method.", 405)
@@ -52,6 +53,7 @@ func main() {
 
 func GetAllJadwal(w http.ResponseWriter, r *http.Request) {
 	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/scheduler")
+	w.Header().Set("Content-Type", "application/json")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -70,9 +72,6 @@ func GetAllJadwal(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(&jad)
 	}
 	err = rows.Err()
-	if err != nil {
-		log.Fatal(err)
-	}
 }
 
 func InsertJadwal (w http.ResponseWriter, r *http.Request) {
